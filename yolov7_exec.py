@@ -38,8 +38,8 @@ pip install -r requirements_gpu.txt
 
 """
 
-DEF_EPOCHS = 1
-DEF_BATCH = 32
+DEF_EPOCHS = 10
+DEF_BATCH = 16
 DEF_RELEASE = "yolov7.pt"
 DEF_WORKERS = 1
 
@@ -187,6 +187,8 @@ print(
     f"python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size {PIXELS} --source REPLACE_WITH_PATH_TO_IMAGE.jpg")
 print("\t->  Test Folder:")
 print("python detect.py --weights yolov7_custom.pt --conf 0.25 --source data/test/images")
+print("\t->  Test Videos:")
+print("python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size 640 --source videos/test.mp4 --name video_inference")
 print("\t-> Results At: yolov7/runs/detect/exp/")
 
 print("\n>>>>>\tTESTING COMMAND\t<<<<<")
