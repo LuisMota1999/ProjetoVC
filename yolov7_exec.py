@@ -21,7 +21,7 @@ pip install -r requirements_gpu.txt
         names: ["ball","crowd","goal","goalkeeper","player","stick"]
             
 -> Update 'cfg/training/yolov7-custom.yaml' according to number of classes of new dataset:
-        nc: 5  # number of classes
+        nc: 6  # number of classes
         (...)
 
 # wget -P /yolov7 https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt
@@ -38,8 +38,8 @@ pip install -r requirements_gpu.txt
 
 """
 
-DEF_EPOCHS = 10
-DEF_BATCH = 16
+DEF_EPOCHS = 100
+DEF_BATCH = 32
 DEF_RELEASE = "yolov7.pt"
 DEF_WORKERS = 1
 
@@ -188,11 +188,11 @@ print(
 print("\t->  Test Folder:")
 print("python detect.py --weights yolov7_custom.pt --conf 0.25 --source data/test/images")
 print("\t->  Test Videos:")
-print("python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size 640 --source videos/test.mp4 --name video_inference")
+print(f"python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size {PIXELS} --source videos/test.mp4 --name video_inference")
 print("\t-> Results At: yolov7/runs/detect/exp/")
 
 print("\n>>>>>\tTESTING COMMAND\t<<<<<")
-print(f"python test.py --data data/custom-data.yaml --img 640 --batch {batch} --conf 0.001 --iou 0.65 --device 0 --weights yolov7_custom.pt --name yolov7_custom_testing")
+print(f"python test.py --data data/custom-data.yaml --img {PIXELS} --batch {batch} --conf 0.001 --iou 0.65 --device 0 --weights yolov7_custom.pt --name yolov7_custom_testing")
 
 import torch
 torch.cuda.empty_cache()
