@@ -42,6 +42,7 @@ DEF_EPOCHS = 100
 DEF_BATCH = 32
 DEF_RELEASE = "yolov7.pt"
 DEF_WORKERS = 1
+DEF_CONFIDENCE = 0.3
 
 yolov7_image_size_map = {
     "yolov7.pt": 640,
@@ -173,6 +174,22 @@ while True:
             continue
         break
 
+# ------------------------------------------------------------------------------------ Confidence
+while True:
+    try:
+        conf = int(input("\033[1mEnter Confidence Value:\033[0m\n"))
+    except ValueError:
+        print(f"\tSorry, I didn't understand that.\n\t-> Setting Default: {DEF_CONFIDENCE}\n")
+        conf = DEF_CONFIDENCE
+        break
+        # continue
+    else:
+        if conf > 1 or conf < 0:
+            print("\t[ERROR] Invalid!")
+            print(f"\t Confidence must be between 0 and 1!")
+            continue
+        break
+
 print(f"cd {yolov7_dir}")
 print("\n>>>>>\tTRAINING COMMAND\t<<<<<")
 print(
@@ -184,15 +201,18 @@ print(
 print("\n>>>>>\tIMAGE INFERENCE COMMAND\t<<<<<")
 print("\t->  Single Image:")
 print(
-    f"python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size {PIXELS} --source REPLACE_WITH_PATH_TO_IMAGE.jpg")
+    f"python detect.py --weights yolov7_custom.pt --conf {conf} --img-size {PIXELS} --source REPLACE_WITH_PATH_TO_IMAGE.jpg")
 print("\t->  Test Folder:")
-print("python detect.py --weights yolov7_custom.pt --conf 0.25 --source data/test/images")
+print(f"python detect.py --weights yolov7_custom.pt --conf {conf} --source data/test/images")
 print("\t->  Test Videos:")
-print(f"python detect.py --weights yolov7_custom.pt --conf 0.25 --img-size {PIXELS} --source videos/test.mp4 --name video_inference")
+print(
+    f"python detect.py --weights yolov7_custom.pt --conf {conf} --img-size {PIXELS} --source videos/test.mp4 --name video_inference")
 print("\t-> Results At: yolov7/runs/detect/exp/")
 
 print("\n>>>>>\tTESTING COMMAND\t<<<<<")
-print(f"python test.py --data data/custom-data.yaml --img {PIXELS} --batch {batch} --conf 0.001 --iou 0.65 --device 0 --weights yolov7_custom.pt --name yolov7_custom_testing")
+print(
+    f"python test.py --data data/custom-data.yaml --img {PIXELS} --batch {batch} --conf 0.001 --iou 0.65 --device 0 --weights yolov7_custom.pt --name yolov7_custom_testing")
 
 import torch
+
 torch.cuda.empty_cache()
