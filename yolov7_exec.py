@@ -17,11 +17,11 @@ pip install -r requirements_gpu.txt
         val: ./data/valid/images
         test: ./data/test/images
         
-        nc: 6
+        nc: 7
         names: ["ball","crowd","goal","goalkeeper","player","stick"]
             
 -> Update 'cfg/training/yolov7-custom.yaml' according to number of classes of new dataset:
-        nc: 6  # number of classes
+        nc: 7  # number of classes
         (...)
 
 # wget -P /yolov7 https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt
@@ -87,7 +87,7 @@ if not (os.path.exists(yolov7_dir + "data/train") and os.path.exists(yolov7_dir 
 
     rf = Roboflow(api_key="YTXhfQI7gXmSKksYA721")
     project = rf.workspace("visao-computacional").project("roller-hockey")
-    dataset = project.version(2).download("yolov7")
+    dataset = project.version(4).download("yolov7")
     print("Move 'train', 'val' and 'test' folders to 'yolov7/data/'")
 
 if "custom-data.yaml" not in os.listdir(dataset_dir):

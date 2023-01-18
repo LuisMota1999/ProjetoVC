@@ -2,5 +2,5 @@ train: ./data/train/images
 val: ./data/valid/images
 test: ./data/test/images
 
-nc: 6
-names: ["ball","crowd","goal","goalkeeper","player","stick"]
+nc: 7
+names: ["ball","crowd","goal","goalkeeper","player","referee","stick"]
